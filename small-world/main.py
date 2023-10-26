@@ -91,14 +91,14 @@ def figure_2():
         C_g = nx.average_clustering(G)
         return L_g, C_g
 
-    sorted_ps = np.logspace(-4, 0, num=14)
+    ps = np.logspace(-4, 0, num=14)
 
     G: nx.Graph = create_graph(1000, 10)
 
     L_0, C_0 = get_metrics(G)
 
     Ls, Cs = [], []
-    for p in tqdm(sorted_ps):
+    for p in tqdm(ps):
         Ls_p = []
         Cs_p = []
         for _ in range(20):
@@ -110,10 +110,11 @@ def figure_2():
         Ls.append(sum(Ls_p) / len(Ls_p))
         Cs.append(sum(Cs_p) / len(Cs_p))
 
-    plt.scatter(sorted_ps, Ls, label="L(p)/L(0)")
-    plt.scatter(sorted_ps, Cs, label="C(p)/C(0)")
+    plt.scatter(ps, Ls, label="L(p)/L(0)")
+    plt.scatter(ps, Cs, label="C(p)/C(0)")
     plt.xscale("log")
     plt.legend()
+    plt.tight_layout()
     plt.savefig("assets/figure_2.png")
     plt.clf()
 
